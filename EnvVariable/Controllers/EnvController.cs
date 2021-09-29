@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Options;
 
 namespace EnvVariable.Controllers
 {
@@ -9,9 +8,9 @@ namespace EnvVariable.Controllers
     public class EnvController : ControllerBase
     {
         private readonly IConfiguration _configuration;
-        private readonly IOptions<ToggleSetting> _toggleSetting;
+        private readonly ToggleSetting _toggleSetting;
 
-        public EnvController(IConfiguration configuration, IOptions<ToggleSetting> toggleSetting)
+        public EnvController(IConfiguration configuration, ToggleSetting toggleSetting)
         {
             _configuration = configuration;
             _toggleSetting = toggleSetting;
@@ -44,8 +43,8 @@ namespace EnvVariable.Controllers
         {
             return Ok(new ToggleResult()
             {
-                IsPromotionEnabled = _toggleSetting.Value.IsPromotionEnabled,
-                IsNewBackgroundEnabled = _toggleSetting.Value.IsNewBackgroundEnabled,
+                IsPromotionEnabled = _toggleSetting.IsPromotionEnabled,
+                IsNewBackgroundEnabled = _toggleSetting.IsNewBackgroundEnabled,
             });
         }
     }

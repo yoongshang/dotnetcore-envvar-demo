@@ -21,7 +21,9 @@ namespace EnvVariable
         {
             services.AddControllers();
 
-            services.Configure<ToggleSetting>(Configuration.GetSection("Toggle"));
+            var toggleSetting = new ToggleSetting();
+            Configuration.Bind("Toggle", toggleSetting);
+            services.AddSingleton(toggleSetting);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
