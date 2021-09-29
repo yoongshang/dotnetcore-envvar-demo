@@ -19,9 +19,9 @@ namespace EnvVariable.Controllers
         {
             return Ok(new Result()
             {
-                Key = _configuration.GetSection("DB_KEY").Value,
-                Token = _configuration.GetSection("DB_TOKEN").Value,
-                Id = int.Parse(_configuration.GetSection("DB_ID").Value),
+                Key = _configuration.GetSection("DB:KEY").Value,
+                Token = _configuration.GetSection("DB:TOKEN").Value,
+                Id = int.Parse(_configuration.GetSection("DB:ID").Value),
             });
         }
         
@@ -30,9 +30,9 @@ namespace EnvVariable.Controllers
         {
             return Ok(new Result()
             {
-                Key = _configuration.GetValue<string>("DB_KEY"),
-                Token = _configuration.GetValue<string>("DB_TOKEN"),
-                Id = _configuration.GetValue<int>("DB_ID"),
+                Key = _configuration.GetValue<string>("DB:KEY"),
+                Token = _configuration.GetValue<string>("DB:TOKEN"),
+                Id = _configuration.GetValue<int>("DB:ID"),
             });
         }
     }
