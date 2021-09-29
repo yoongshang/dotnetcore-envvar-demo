@@ -9,9 +9,9 @@ namespace EnvVariable.Controllers
     public class EnvController : ControllerBase
     {
         private readonly IConfiguration _configuration;
-        private readonly IOptions<ToggleSetting> _toggleSetting;
+        private readonly IOptionsSnapshot<ToggleSetting> _toggleSetting;
 
-        public EnvController(IConfiguration configuration, IOptions<ToggleSetting> toggleSetting)
+        public EnvController(IConfiguration configuration, IOptionsSnapshot<ToggleSetting> toggleSetting)
         {
             _configuration = configuration;
             _toggleSetting = toggleSetting;
