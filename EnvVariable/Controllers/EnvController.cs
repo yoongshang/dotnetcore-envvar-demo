@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 
 namespace EnvVariable.Controllers
 {
@@ -8,10 +9,12 @@ namespace EnvVariable.Controllers
     public class EnvController : ControllerBase
     {
         private readonly IConfiguration _configuration;
+        private readonly IOptions<ToggleSetting> _toggleSetting;
 
-        public EnvController(IConfiguration configuration)
+        public EnvController(IConfiguration configuration, IOptions<ToggleSetting> toggleSetting)
         {
             _configuration = configuration;
+            _toggleSetting = toggleSetting;
         }
 
         [HttpGet("section")]
@@ -35,6 +38,22 @@ namespace EnvVariable.Controllers
                 Id = _configuration.GetValue<int>("DB:ID"),
             });
         }
+        
+        [HttpGet("toggle")]
+        public ActionResult GetToggle()
+        {
+            return Ok(new ToggleResult()
+            {
+                IsPromotionEnabled = _toggleSetting.Value.IsPromotionEnabled,
+                IsNewBackgroundEnabled = _toggleSetting.Value.IsNewBackgroundEnabled,
+            });
+        }
+    }
+
+    public class ToggleResult
+    {
+        public bool IsPromotionEnabled { get; set; }
+        public bool IsNewBackgroundEnabled { get; set; }
     }
 
     public class Result
@@ -42,5 +61,11 @@ namespace EnvVariable.Controllers
         public string Key { get; set; }
         public string Token { get; set; }
         public int Id { get; set; }
+    }
+    
+    public class ToggleSetting
+    {
+        public bool IsPromotionEnabled { get; set; }
+        public bool IsNewBackgroundEnabled { get; set; }
     }
 }
