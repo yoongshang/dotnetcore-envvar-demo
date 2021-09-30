@@ -18,6 +18,12 @@ namespace EnvVariable
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder => { webBuilder.UseStartup<Startup>(); });
+                .ConfigureWebHostDefaults(webBuilder => { webBuilder.UseStartup<Startup>(); })
+                .ConfigureAppConfiguration((hosting, configBuilder) =>
+                {
+                    configBuilder.AddJsonFile(
+                        $"/Users/yoongshang/appsettings.{hosting.HostingEnvironment.EnvironmentName}.json",
+                        true, true);
+                });
     }
 }
